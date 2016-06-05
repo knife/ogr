@@ -1,0 +1,12 @@
+language: ruby
+cache: bundler
+rvm:
+  - 2.2.2
+  - 2.2.3
+  - 2.3.0
+  - jruby-head
+script:
+  - bundle exec rake
+before_install:
+  - gem install bundler
+  - gem update bundler
