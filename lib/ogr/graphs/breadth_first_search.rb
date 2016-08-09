@@ -1,7 +1,8 @@
 module Ogr
   # Class implements Breadth First Search in graphs
   class BreadthFirstSearch
-    attr_accessor :graph, :colors, :parents, :visited, :distance, :to_visit
+    attr_accessor :parents, :visited, :distance
+    private :parents=, :visited=, :distance=
 
     def initialize(graph)
       @graph = graph
@@ -13,20 +14,23 @@ module Ogr
     end
 
     def search(s)
+      # TODO Check if source exists in graph
       reset!
       visit_source(s)
       until to_visit.empty?
         v = to_visit.dequeue
         visit_neighbors(v)
         colors[v] = :black
-        visited << v
+        visited << (block_given? ? yield(v) : v)
       end
       visited
     end
 
     private
+    attr_accessor :graph, :to_visit, :colors
 
     def reset!
+      self.visited = []
       graph.each_vertex do |v|
         colors[v] = :white
         parents[v] = nil

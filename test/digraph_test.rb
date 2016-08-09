@@ -117,10 +117,5 @@ describe Digraph do
       @wdigraph.out_degree(:B).must_equal 0
       @wdigraph.out_degree(:A).must_equal 3
     end
-
-    it '#bfs should iterate over graph in bfs order.' do
-      searcher = BreadthFirstSearch.new(@wdigraph)
-      searcher.search(:A).must_equal [:A, :C, :D, :G, :E, :F, :B]
-    end
   end
 end

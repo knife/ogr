@@ -40,7 +40,7 @@ module Ogr
       add_edges([edge])
     end
 
-    # Removes conection between vertex x and y.
+    # Removes connection between vertex x and y.
     def remove(x, y)
       @g.remove(index(x), index(y))
     end
