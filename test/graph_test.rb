@@ -2,12 +2,12 @@ require 'test_helper'
 
 describe Ogr::Graph do
   before do
-    edges = []
-    edges << Edge.new('Lukas', 'Marc')
-    edges << Edge.new('Lukas', 'Tom')
-    edges << Edge.new('Marc', 'Jack')
-    edges << Edge.new('Tom', 'Marc')
-    @edges = edges
+    @edges = [
+      %w(Lukas Marc),
+      %w(Lukas Tom),
+      %w(Marc Jack),
+      %w(Tom Marc)
+    ]
   end
 
   describe 'dense graph implement as Triangular Matrix' do
@@ -15,25 +15,25 @@ describe Ogr::Graph do
       @graph = Graph.new_dense(@edges)
     end
 
-    it '#vertex_size should return number of vertexes' do
+    it '#vertex_size returns number of vertexes' do
       @graph.vertex_size.must_equal 4
     end
 
-    it '#degree should return degree for given vertex.' do
+    it '#degree returns degree for given vertex.' do
       @graph.degree('Marc').must_equal 3
       @graph.degree('Jack').must_equal 1
       @graph.degree('Lukas').must_equal 2
       @graph.degree('Tom').must_equal 2
     end
 
-    it '#edge? should check if given vertexes are connected.' do
+    it '#edge? checks if given vertexes are connected.' do
       assert @graph.edge?('Marc', 'Tom')
       assert @graph.edge?('Tom', 'Marc')
       refute @graph.edge?('Tom', 'Jack')
       refute @graph.edge?('Jack', 'Tom')
     end
 
-    it '#add_edges should add new edges.' do
+    it '#add_edges adds new edges.' do
       @graph.add_edges([Edge.new('Marc', 'Kate')])
       @graph.vertex_size.must_equal 5
       assert @graph.edge?('Marc', 'Kate')
@@ -41,14 +41,14 @@ describe Ogr::Graph do
       refute @graph.edge?('Tom', 'Kate')
     end
 
-    it '#add should add new edge to graph.' do
+    it '#add adds new edge to graph.' do
       @graph.add('Jack', 'Lukas')
       @graph.vertex_size.must_equal 4
       assert @graph.edge?('Jack', 'Lukas')
       assert @graph.edge?('Lukas', 'Jack')
     end
 
-    it '#remove_edge should remove edge.' do
+    it '#remove_edge removes edge from graph.' do
       @graph.remove('Marc', 'Jack')
       @graph.vertex_size.must_equal 4
       refute @graph.edge?('Marc', 'Jack')
@@ -64,13 +64,13 @@ describe Ogr::Graph do
       refute n.include?('Jack')
     end
 
-    it 'should iterate edges.' do
+    it '#each_edge iterates over edges.' do
       r = []
       @graph.each_edge { |e| r.push e }
       r.size.must_equal 4
     end
 
-    it 'should iterate vertexes.' do
+    it '#each_vertex iterates over vertexes.' do
       r = []
       @graph.each_vertex { |v| r.push v }
       r.size.must_equal 4

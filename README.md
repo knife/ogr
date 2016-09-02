@@ -1,10 +1,12 @@
 # Ogr
 
-Sparse, dense, directed, undirected, weighted graphs for Ruby.
+General graph library for Ruby. Provides sparse(or dense), directed(or undirected) and weighted graphs for Ruby.
 
 ## Installation
 
+```ruby
   gem install ogr
+```
 
 ## Usage
 
@@ -25,12 +27,24 @@ To not have to type "Ogr::" before each class, use:
 
 Creating new Graph
 
+First define edges:
+
 ```ruby
   edges = []
   edges << Edge.new('Jim','Bob')
   edges << Edge.new('Jim','Tom')
   edges << Edge.new('Bob','Jack')
   edges << Edge.new('Tom','Bob')
+```
+or
+
+```ruby
+  edges = [
+      ['Jim','Bob'],
+      ['Jim','Tom'],
+      ['Bob','Jack'],
+      ['Tom','Bob']
+  ]
 ```
 
 New undirected graph (implemented as adjency list)

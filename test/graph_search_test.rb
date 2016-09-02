@@ -30,5 +30,14 @@ describe 'Graph searching' do
       searcher.distance.must_equal a: 0, c: 1, d: 1, g: 1, e: 2, f: 2, b: 2
       searcher.parents.must_equal a: nil, c: :a, d: :a, g: :a, e: :c, f: :c, b: :g
     end
+
+    it '#dfs should iterate over graph in dfs order.' do
+      searcher = DepthFirstSearch.new(@wdigraph)
+      searcher.search(:a).must_equal %i(a g b e d c f)
+
+      searcher.search(:a) { |e| e.to_s.swapcase }
+      searcher.visited.must_equal %w(A G B E D C F)
+      searcher.parents.must_equal a: nil, c: :d, d: :a, g: :a, e: :g, f: :c, b: :g
+    end
   end
 end

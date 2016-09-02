@@ -14,7 +14,7 @@ module Ogr
     end
 
     def search(s)
-      # TODO Check if source exists in graph
+      # TODO: Check if source exists in graph
       reset!
       visit_source(s)
       until to_visit.empty?
@@ -27,6 +27,7 @@ module Ogr
     end
 
     private
+
     attr_accessor :graph, :to_visit, :colors
 
     def reset!

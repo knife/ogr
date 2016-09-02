@@ -4,7 +4,7 @@ module Ogr
     # Create new graph from array of edges. Second parameter determines
     # graph internal implementation: :list (Adjency List), :tri_matrix (Triangular
     # Matrix), :matrix (Matrix).
-    def initialize(edges, store = :list)
+    def initialize(edges = nil, store = :list)
       @map = IndexedSet.new
       case store
       when :list
@@ -14,7 +14,8 @@ module Ogr
       when :tri_matrix
         @g = GraphAsTriMatrix.new
       end
-      add_edges(edges)
+
+      add_edges(edges) if edges
     end
 
     # Create new graph from array of edges. Internally graph will be represented
@@ -30,8 +31,10 @@ module Ogr
 
     # Adds new edges to graph.
     def add_edges(edges)
-      edges.map do |e|
-        add(e.from, e.to, e.weight)
+      if edges[0].is_a? Array
+        edges.each { |e| add(e[0], e[1]) }
+      else
+        edges.each { |e| add(e.from, e.to, e.weight) }
       end
     end
 

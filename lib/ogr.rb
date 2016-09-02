@@ -10,6 +10,7 @@ require 'ogr/graphs/edge_bag'
 require 'ogr/graphs/graph'
 require 'ogr/graphs/digraph'
 require 'ogr/graphs/breadth_first_search'
+require 'ogr/graphs/depth_first_search'
 
 # Main module namespace
 module Ogr
