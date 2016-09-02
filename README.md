@@ -127,8 +127,15 @@ Examples
   wdigraph.out_degree(:E) #=> 1
 ```
 
+## Searching
+
 Breadth First Search:
 ```ruby
   BreadthFirstSearch.new(wdigraph).search(:A) #=> [:A, :C, :D, :G, :E, :F, :B]
 ```
+
+Depth First Search:
+```ruby
+  DepthFirstSearch.new(wdigraph).search(:A) #=> [:A, :G, :B, :E, :D, :C, :F]
+`
 
