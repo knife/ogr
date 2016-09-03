@@ -1,8 +1,9 @@
 module Ogr
-  # Class implements Breadth First Search in graphs
+  # Class implements Depth First Search in graphs
   class DepthFirstSearch
     attr_accessor :parents, :visited, :distance, :marked
-    private :parents=, :visited=, :distance=, :marked=
+    attr_reader :graph
+    private :graph, :parents=, :visited=, :distance=, :marked=
 
     def initialize(graph)
       @graph = graph
@@ -18,6 +19,8 @@ module Ogr
       visited
     end
 
+    private
+
     def dfs(v, from = nil, &block)
       marked[v] = true
       visited << (block_given? ? yield(v) : v)
@@ -26,10 +29,6 @@ module Ogr
         dfs(u, v, &block) unless marked[u]
       end
     end
-
-    private
-
-    attr_reader :graph
 
     def reset!
       self.visited = []

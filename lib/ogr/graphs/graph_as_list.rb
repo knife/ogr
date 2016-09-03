@@ -37,6 +37,7 @@ module Ogr
 
     # Returns all neighbors for given vertex.
     def neighbors(x)
+      return [] unless @store[x]
       @store[x].map { |edge| edge[:v] }
     end
 
