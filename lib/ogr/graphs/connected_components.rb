@@ -1,5 +1,5 @@
 module Ogr
-  # ConnectedComponents class
+  # ConnectedComponents class finds graph components
   class ConnectedComponents
     attr_accessor :visited
     attr_reader :graph
@@ -9,7 +9,7 @@ module Ogr
       @graph = graph
       @visited = {}
 
-      mark_components
+      find_components
     end
 
     def connected?(v, u)
@@ -18,8 +18,7 @@ module Ogr
 
     private
 
-    def mark_components
-      self.visited = {}
+    def find_components
       marker = 0
       vertexes.each { |v| visited[v] = nil }
       vertexes.each do |v|
