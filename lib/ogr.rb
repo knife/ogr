@@ -12,6 +12,7 @@ require 'ogr/graphs/digraph'
 require 'ogr/graphs/breadth_first_search'
 require 'ogr/graphs/depth_first_search'
 require 'ogr/graphs/connected_components'
+require 'ogr/union_find'
 
 # Main module namespace
 module Ogr
