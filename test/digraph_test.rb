@@ -70,6 +70,22 @@ describe Digraph do
       refute @digraph.edge?('Marc', 'Jack')
       assert @digraph.edge?('Jack', 'Marc')
     end
+
+    it '#each_edge should iterate over edges.' do
+      edges = []
+      @digraph.each_edge { |e| edges.push e }
+      edges.map! { |e| [e.from, e.to, e.weight] }
+      edges.must_include ['Jack', 'Marc', 1]
+      edges.must_include ['Marc', 'Jack', 1]
+      edges.must_include ['Lukas', 'Tom', 1]
+      edges.must_include ['Lukas', 'Tom', 1]
+      edges.must_include ['Tom', 'Marc', 1]
+    end
+
+    it '#edges returns edges list' do
+      @digraph.edges.size.must_equal 5
+      @digraph.edges.must_be_kind_of Array
+    end
   end
 
   describe 'with weighted edges' do

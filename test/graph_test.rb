@@ -76,6 +76,11 @@ describe Ogr::Graph do
       r.size.must_equal 4
       r.sort.must_equal %w(Jack Lukas Marc Tom)
     end
+
+    it '#edges returns edges list' do
+      @graph.edges.size.must_equal 4
+      @graph.edges.must_be_kind_of Array
+    end
   end
 
   describe 'graph implement as Adjency List' do
@@ -132,17 +137,22 @@ describe Ogr::Graph do
       refute n.include?('Jack')
     end
 
-    it 'should iterate edges.' do
+    it '#each_edge should iterate edges.' do
       r = []
       @graph.each_edge { |e| r.push e }
       r.size.must_equal 4
     end
 
-    it 'should iterate vertexes.' do
+    it '#each_vertex should iterate vertexes.' do
       r = []
       @graph.each_vertex { |v| r.push v }
       r.size.must_equal 4
       r.sort.must_equal %w(Jack Lukas Marc Tom)
+    end
+
+    it '#edges returns edges list' do
+      @graph.edges.size.must_equal 4
+      @graph.edges.must_be_kind_of Array
     end
   end
 end

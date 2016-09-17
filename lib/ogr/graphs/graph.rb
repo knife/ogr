@@ -26,13 +26,14 @@ module Ogr
 
     # Adds new edge to graph.
     def add(x, y, weight = 1)
+      weight ||= 1
       @g.add(push(x), push(y), weight)
     end
 
     # Adds new edges to graph.
     def add_edges(edges)
       if edges[0].is_a? Array
-        edges.each { |e| add(e[0], e[1]) }
+        edges.each { |e| add(e[0], e[1], e[2]) }
       else
         edges.each { |e| add(e.from, e.to, e.weight) }
       end
@@ -70,6 +71,16 @@ module Ogr
       Edge.new(x, y, w) if w
     end
 
+    # Vertex iterator
+    def each_vertex
+      vc.each { |v| yield vertexes[v] }
+    end
+
+    # Edge iterator
+    def each_edge(&block)
+      @g.each_edge(vertexes, &block)
+    end
+
     def vc
       (0...vertexes.size)
     end
@@ -82,21 +93,18 @@ module Ogr
       vertexes.size
     end
 
-    # Vertex iterator
-    def each_vertex
-      vc.each { |v| yield vertexes[v] }
+    def edges
+      arr = []
+      each_edge { |e| arr << e }
+      arr
     end
 
-    # Edge iterator
-    def each_edge(&block)
-      @g.each_edge(vertexes, &block)
-    end
-
-    private
-
+    # Internal numeric representation of vertex
     def index(x)
       @map.index(x)
     end
+
+    private
 
     def push(x)
       @map.push(x)
