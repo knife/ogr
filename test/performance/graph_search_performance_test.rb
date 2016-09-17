@@ -4,7 +4,7 @@ require 'csv'
 if ENV['BENCH']
   describe 'Graph Search Benchmark' do
     before :all do
-      @edges = CSV.read('test/edges.csv')
+      @edges = CSV.read('test/data/edges.csv')
       @digraph = Digraph.new(@edges.map { |e| [e[0], e[1]] })
     end
 

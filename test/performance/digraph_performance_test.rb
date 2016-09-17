@@ -4,7 +4,7 @@ require 'csv'
 if ENV['BENCH']
   describe 'Digraph Benchmark' do
     before :all do
-      edges = CSV.read('test/edges.csv')
+      edges = CSV.read('test/data/edges.csv')
       @digraph = Digraph.new(edges.map { |e| [e[0], e[1]] })
     end
 
@@ -21,7 +21,7 @@ if ENV['BENCH']
     end
 
     bench_performance_constant '#remove should be const op', 0.999 do |n|
-      edges = CSV.read('test/edges.csv')
+      edges = CSV.read('test/data/edges.csv')
       n.times do |i|
         @digraph.remove(edges[n + i][0], edges[n + i][1])
       end
