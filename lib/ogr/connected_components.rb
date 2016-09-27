@@ -8,7 +8,6 @@ module Ogr
     def initialize(graph)
       @graph = graph
       @visited = {}
-
       find_components
     end
 

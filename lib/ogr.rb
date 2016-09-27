@@ -12,6 +12,7 @@ require 'ogr/graphs/digraph'
 require 'ogr/breadth_first_search'
 require 'ogr/depth_first_search'
 require 'ogr/connected_components'
+require 'ogr/shortest_pahts'
 require 'ogr/minimum_spanning_tree'
 require 'ogr/union_find'
 
