@@ -30,7 +30,7 @@ module Ogr
       vertexes.each do |v|
         unless visited[v]
           dfs(v, counter)
-          self.counter += 1
+          @counter += 1
         end
       end
     end
