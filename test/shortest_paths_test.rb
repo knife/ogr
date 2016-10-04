@@ -25,7 +25,7 @@ describe 'Shortest paths' do
       @sp = ShortestPaths.new(graph, 0)
     end
 
-    it '#distance returns distance from source.' do
+    it '#distance_to returns distance from source.' do
       @sp.distance_to(7).must_equal 8.0
       @sp.distance_to(0).must_equal 0.0
       @sp.distance_to(5).must_equal 13.0

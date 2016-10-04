@@ -6,22 +6,18 @@ module Ogr
 
     def initialize(graph)
       @graph = graph
-      @colors = {}
+      @colors = Hash.new(:white)
       @parents = {}
       @visited = []
-      @distance = {}
+      @distance = Hash.new(Float::INFINITY)
       @to_visit = SimpleQueue.new
     end
 
-    def search(s)
-      # TODO: Check if source exists in graph
-      reset!
-      visit_source(s)
-      until to_visit.empty?
-        v = to_visit.dequeue
-        visit_neighbors(v)
-        colors[v] = :black
-        visited << (block_given? ? yield(v) : v)
+    def search(source = nil, &block)
+      if source
+        visit_source(source, &block)
+      else
+        graph.each_vertex { |v| visit_source(v, &block) if not_visited?(v) }
       end
       visited
     end
@@ -30,20 +26,23 @@ module Ogr
 
     attr_accessor :graph, :to_visit, :colors
 
-    def reset!
-      self.visited = []
-      graph.each_vertex do |v|
-        colors[v] = :white
-        parents[v] = nil
-        distance[v] = Float::INFINITY
-      end
-    end
-
     def visit_source(s)
       colors[s] = :white
       parents[s] = nil
       distance[s] = 0
       to_visit.enqueue s
+      until to_visit.empty?
+        v = to_visit.dequeue
+        visit_neighbors(v)
+        colors[v] = :black
+        visited << (block_given? ? yield(v) : v)
+      end
+    end
+
+    def visit_neighbors(u)
+      graph.neighbors(u).each do |v|
+        visit_node(v, u) if not_visited?(v)
+      end
     end
 
     def visit_node(v, from)
@@ -51,12 +50,6 @@ module Ogr
       parents[v] = from
       distance[v] = distance[from] + 1
       to_visit.enqueue v
-    end
-
-    def visit_neighbors(u)
-      graph.neighbors(u).each do |v|
-        visit_node(v, u) if not_visited?(v)
-      end
     end
 
     def not_visited?(v)

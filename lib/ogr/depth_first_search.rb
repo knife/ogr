@@ -1,39 +1,39 @@
 module Ogr
   # Class implements Depth First Search in graphs
   class DepthFirstSearch
-    attr_accessor :parents, :visited, :distance, :marked
+    attr_accessor :visited, :marked
     attr_reader :graph
-    private :graph, :parents=, :visited=, :distance=, :marked=
+    private :graph, :visited=, :marked=
 
     def initialize(graph)
       @graph = graph
-      @parents = {}
       @marked = {}
       @visited = []
-      @distance = {}
     end
 
-    def search(u, &block)
-      reset!
-      dfs(u, &block)
+    def search(source = nil, &block)
+      if source
+        dfs(source, &block)
+      else
+        graph.vertexes.each { |v| dfs(v, &block) unless marked[v] }
+      end
       visited
     end
 
     private
 
-    def dfs(v, from = nil, &block)
-      marked[v] = true
-      visited << (block_given? ? yield(v) : v)
-      parents[v] = from
-      graph.neighbors(v).reverse_each do |u|
-        dfs(u, v, &block) unless marked[u]
+    def dfs(v, &block)
+      @stack = [v]
+      while u = @stack.pop
+        visit(u, v, &block)
       end
     end
 
-    def reset!
-      self.visited = []
-      self.parents = {}
-      self.marked = {}
+    def visit(v, _from = nil)
+      return if marked[v]
+      visited << (block_given? ? yield(v) : v)
+      marked[v] = true
+      @stack.concat(graph.neighbors(v))
     end
   end
 end

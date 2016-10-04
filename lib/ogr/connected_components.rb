@@ -1,13 +1,14 @@
 module Ogr
   # ConnectedComponents class finds graph components
   class ConnectedComponents
-    attr_accessor :visited
+    attr_accessor :visited, :counter
     attr_reader :graph
-    private :graph, :visited, :visited=
+    private :graph, :visited, :visited=, :counter, :counter=
 
     def initialize(graph)
       @graph = graph
       @visited = {}
+      @counter = 0
       find_components
     end
 
@@ -15,23 +16,29 @@ module Ogr
       visited[v] == visited[u]
     end
 
+    def component(v)
+      visited[v]
+    end
+
+    def count
+      counter
+    end
+
     private
 
     def find_components
-      marker = 0
-      vertexes.each { |v| visited[v] = nil }
       vertexes.each do |v|
         unless visited[v]
-          dfs(v, marker)
-          marker += 1
+          dfs(v, counter)
+          self.counter += 1
         end
       end
     end
 
-    def dfs(v, marker)
-      visited[v] = marker
+    def dfs(v, counter)
+      visited[v] = counter
       graph.neighbors(v).reverse_each do |u|
-        dfs(u, marker) unless visited[u]
+        dfs(u, counter) unless visited[u]
       end
     end
 

@@ -11,18 +11,29 @@ describe 'Connected components' do
         %i(f g)
       ]
       @graph = Graph.new(edges)
+      @cc = ConnectedComponents.new(@graph)
     end
 
     it '#connected? returns true if two vertexes are connected.' do
-      cc = ConnectedComponents.new(@graph)
-      assert cc.connected?(:a, :b)
-      assert cc.connected?(:b, :a)
-      assert cc.connected?(:a, :c)
-      assert cc.connected?(:c, :a)
-      assert cc.connected?(:c, :b)
-      assert cc.connected?(:e, :d)
-      refute cc.connected?(:a, :e)
-      refute cc.connected?(:e, :f)
+      @cc.connected?(:a, :b).must_equal true
+      @cc.connected?(:b, :a).must_equal true
+      @cc.connected?(:a, :c).must_equal true
+      @cc.connected?(:c, :a).must_equal true
+      @cc.connected?(:c, :b).must_equal true
+      @cc.connected?(:e, :d).must_equal true
+      @cc.connected?(:a, :e).must_equal false
+      @cc.connected?(:e, :f).must_equal false
+    end
+
+    it '#counter returns number of connected components.' do
+      @cc.count.must_equal 3
+    end
+
+    it '#component returns component number for given vertex.' do
+      @cc.component(:a).must_equal 0
+      @cc.component(:b).must_equal 0
+      @cc.component(:d).must_equal 1
+      @cc.component(:f).must_equal 2
     end
   end
 
@@ -36,18 +47,29 @@ describe 'Connected components' do
         %i(f g)
       ]
       @graph = Digraph.new(edges)
+      @cc = ConnectedComponents.new(@graph)
     end
 
     it '#connected? returns true if two vertexes are connected.' do
-      cc = ConnectedComponents.new(@graph)
-      assert cc.connected?(:a, :b)
-      assert cc.connected?(:b, :a)
-      assert cc.connected?(:a, :c)
-      assert cc.connected?(:c, :a)
-      assert cc.connected?(:c, :b)
-      assert cc.connected?(:e, :d)
-      refute cc.connected?(:a, :e)
-      refute cc.connected?(:e, :f)
+      @cc.connected?(:a, :b).must_equal true
+      @cc.connected?(:b, :a).must_equal true
+      @cc.connected?(:a, :c).must_equal true
+      @cc.connected?(:c, :a).must_equal true
+      @cc.connected?(:c, :b).must_equal true
+      @cc.connected?(:e, :d).must_equal true
+      @cc.connected?(:a, :e).must_equal false
+      @cc.connected?(:e, :f).must_equal false
+    end
+
+    it '#counter returns number of connected components.' do
+      @cc.count.must_equal 3
+    end
+
+    it '#component returns component number for given vertex.' do
+      @cc.component(:a).must_equal 0
+      @cc.component(:b).must_equal 0
+      @cc.component(:d).must_equal 1
+      @cc.component(:f).must_equal 2
     end
   end
 end
