@@ -1,6 +1,9 @@
 # Ogr
 
-General graph library for Ruby. Provides sparse(or dense), directed(or undirected) and weighted graphs for Ruby.
+[![Build Status](https://travis-ci.org/knife/ogr.svg?branch=master)](https://travis-ci.org/knife/ogr)
+
+General graph library for Ruby. Provides sparse(or dense), directed(or undirected) and weighted(or normal) graphs.
+
 
 ## Installation
 
