@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'csv'
 
-if ENV['BENCH']
+if ENV['BENCH'] == 'true'
   describe 'Graph Search Benchmark' do
     before :all do
       @edges = CSV.read('test/data/edges.csv')

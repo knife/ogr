@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'csv'
 
-if ENV['BENCH']
+if ENV['BENCH'] == 'true'
   describe 'MinimumSpanningTree Benchmark' do
     before :all do
       @edges = CSV.read('test/data/10000EWG.txt', col_sep: ' ')
