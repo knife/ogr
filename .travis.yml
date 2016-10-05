@@ -1,12 +1,17 @@
 language: ruby
 cache: bundler
 rvm:
-  - 2.2.2
+  - 2.1.5
   - 2.2.3
   - 2.3.0
   - jruby-head
 env:
+  - BENCH=false
   - BENCH=true
+matrix:
+  exclude:
+    rvm: jruby-head
+    env: BENCH=true
 script:
   - bundle exec rake
 before_install:

@@ -33,7 +33,7 @@ module Ogr
       return if marked[v]
       visited << (block_given? ? yield(v) : v)
       marked[v] = true
-      @stack.push(*graph.neighbors(v))
+      @stack.concat(graph.neighbors(v))
     end
   end
 end
