@@ -17,7 +17,7 @@ module Ogr
       if source
         visit_source(source, &block)
       else
-        graph.each_vertex { |v| visit_source(v, &block) if not_visited?(v) }
+        graph.each_vertex { |v| visit_source(v, &block) unless visited?(v) }
       end
       visited
     end
@@ -27,8 +27,6 @@ module Ogr
     attr_accessor :graph, :to_visit, :colors
 
     def visit_source(s)
-      colors[s] = :white
-      parents[s] = nil
       distance[s] = 0
       to_visit.enqueue s
       until to_visit.empty?
@@ -41,7 +39,7 @@ module Ogr
 
     def visit_neighbors(u)
       graph.neighbors(u).each do |v|
-        visit_node(v, u) if not_visited?(v)
+        visit_node(v, u) unless visited?(v)
       end
     end
 
@@ -52,8 +50,8 @@ module Ogr
       to_visit.enqueue v
     end
 
-    def not_visited?(v)
-      colors[v] == :white
+    def visited?(v)
+      colors[v] != :white
     end
   end
 end
