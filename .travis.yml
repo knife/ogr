@@ -5,6 +5,8 @@ rvm:
   - 2.2.3
   - 2.3.0
   - jruby-head
+env:
+  - BENCH=true
 script:
   - bundle exec rake
 before_install:
