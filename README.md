@@ -2,8 +2,10 @@
 
 [![Build Status](https://travis-ci.org/knife/ogr.svg?branch=master)](https://travis-ci.org/knife/ogr)
 
-General graph library for Ruby. Provides sparse(or dense), directed(or undirected) and weighted(or normal) graphs.
-
+General graph library for Ruby. Provides sparse(or dense), directed(or undirected) and weighted(or normal) graphs. 
+Graph processing algorithms like BFS, DFS, ShortestPaths, MinimumSpanningTree are also included. 
+This gem depends only on [DS Gem](https://github.com/knife/ds) which contains other data structures
+not implemented in Ruby Standard Library.
 
 ## Installation
 
@@ -144,23 +146,28 @@ Depth First Search:
       
 You can also pass block to search methods:
 ```ruby
-    DepthFirstSearch.new(wdigraph).search(:A) { |v| v.upcase }
+  DepthFirstSearch.new(wdigraph).search(:A) { |v| v.upcase }
 ```
 
 If source vertex is not given search iterates over all vertexes in graph.
 
+## Topological Sort
+```ruby
+  TopologicalSort.new(graph).sort #=> array of vertexes in topological order
+```
+
 ## Connected Compontents
 
 ```ruby
-    cc = ConnectedComponents.new(graph)
-    cc.count # => 1
-    cc.connected?(:a, :b) # => true
+  cc = ConnectedComponents.new(graph)
+  cc.count # => 1
+  cc.connected?(:a, :b) # => true
 ```
 
 ## Minimal Spanning Tree
 
 ```ruby
-    tree = MinimumSpanningTree.new(graph).calculate #=> array of edges
+  tree = MinimumSpanningTree.new(graph).calculate #=> array of edges
 ```
 
 
@@ -168,10 +175,10 @@ If source vertex is not given search iterates over all vertexes in graph.
 
 Finding shortest paths in graph from vertex 0:
 ```ruby
-   sp = ShortestPaths.new(graph, 0)
-   sp.distance_to(7) #=>  returns shortest distance from vertex 0 to vertex 7
-   sp.has_path?(7) #=>  returns true if shortest path to 7 exists
-   sp.path_to(4) #=>  returns path from vertex 0 to vertex 4
+  sp = ShortestPaths.new(graph, 0)
+  sp.distance_to(7) #=>  returns shortest distance from vertex 0 to vertex 7
+  sp.has_path?(7) #=>  returns true if shortest path to 7 exists
+  sp.path_to(4) #=>  returns path from vertex 0 to vertex 4
 ```
 
 

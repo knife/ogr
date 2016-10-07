@@ -26,6 +26,6 @@ describe 'Minimum Spanning Tree' do
 
   it '#calculate returns MST for given tree' do
     tree = @mst.calculate
-    assert_equal tree.map(&:weight), [0.16, 0.17, 0.19, 0.26, 0.28, 0.35, 0.40]
+    tree.map(&:weight).must_equal [0.16, 0.17, 0.19, 0.26, 0.28, 0.35, 0.40]
   end
 end
