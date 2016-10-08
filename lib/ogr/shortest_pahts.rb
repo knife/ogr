@@ -47,18 +47,17 @@ module Ogr
 
     def relax(edge)
       new_distance = distance[edge.from] + edge.weight
-      if new_distance < distance[edge.to]
-        distance[edge.to] = new_distance
-        parent[edge.to] = edge.from
-        update_queue(edge, new_distance)
-      end
+      found_better(edge, new_distance) if new_distance < distance[edge.to]
     end
 
-    def update_queue(edge, new_distance)
-      if queue.include?(edge.to)
-        queue.update(edge.to, new_distance)
+    def found_better(edge, new_distance)
+      v = edge.to
+      distance[v] = new_distance
+      parent[v] = edge.from
+      if queue.include?(v)
+        queue.update(v, new_distance)
       else
-        queue.push(edge.to, new_distance)
+        queue.push(v, new_distance)
       end
     end
   end
