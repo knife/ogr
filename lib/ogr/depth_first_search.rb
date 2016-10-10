@@ -1,9 +1,8 @@
 module Ogr
   # Class implements Depth First Search in graphs
   class DepthFirstSearch
-    attr_accessor :visited, :marked
-    attr_reader :graph
-    private :graph, :visited=, :marked=
+    attr_reader :graph, :stack, :marked, :visited
+    private :graph, :stack, :marked
 
     def initialize(graph)
       @graph = graph
@@ -24,16 +23,16 @@ module Ogr
 
     def dfs(v, &block)
       @stack = [v]
-      while u = @stack.pop
-        visit(u, v, &block)
+      while u = stack.pop
+        visit(u, &block)
       end
     end
 
-    def visit(v, _from = nil)
+    def visit(v)
       return if marked[v]
       visited << (block_given? ? yield(v) : v)
       marked[v] = true
-      @stack.concat(graph.neighbors(v))
+      stack.concat(graph.neighbors(v))
     end
   end
 end

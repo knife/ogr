@@ -71,5 +71,11 @@ describe 'Connected components' do
       @cc.component(:d).must_equal 1
       @cc.component(:f).must_equal 2
     end
+
+    it '#components returns hash with components.' do
+      @cc.components.must_be_instance_of Hash
+      @cc.components.size.must_equal 7
+      @cc.components[:b].must_equal 0
+    end
   end
 end
