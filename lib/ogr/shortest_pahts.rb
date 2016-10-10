@@ -1,6 +1,9 @@
 module Ogr
   # Finds shortest paths in graph using Dijkstra algorithm
   class ShortestPaths
+    attr_reader :parent, :distance, :graph, :queue
+    private :parent, :distance, :graph, :queue
+
     def initialize(graph, source)
       @graph = graph
       @queue = IndexedPriorityQueue.min
@@ -29,10 +32,6 @@ module Ogr
       path.push v while v = parent[v]
       path.reverse
     end
-
-    private
-
-    attr_accessor :parent, :distance, :graph, :queue
 
     def find_paths(source)
       distance[source] = 0

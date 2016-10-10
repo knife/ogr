@@ -1,6 +1,9 @@
 module Ogr
   # Class implements Kruskal algorithm for finding Minimum Spanning Tree
   class MinimumSpanningTree
+    attr_reader :graph, :uf
+    private :graph, :uf
+
     def initialize(graph)
       @graph = graph
       @uf = UnionFind.new(@graph.vertexes.size)
@@ -9,11 +12,11 @@ module Ogr
     def calculate
       tree = []
       while edge = edges.shift
-        from = @graph.index(edge.from)
-        to = @graph.index(edge.to)
+        from = graph.index(edge.from)
+        to = graph.index(edge.to)
 
-        unless @uf.connected?(from, to)
-          @uf.union(from, to)
+        unless uf.connected?(from, to)
+          uf.union(from, to)
           tree << edge
         end
       end

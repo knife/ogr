@@ -1,8 +1,8 @@
 module Ogr
   # Class implements Union Find algorithm
   class UnionFind
-    attr_accessor :store, :sizes
-    private :store, :store=, :sizes, :sizes=
+    attr_reader :store, :sizes
+    private :store, :sizes
 
     def initialize(n)
       @store = (0..n).to_a

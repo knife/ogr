@@ -1,8 +1,7 @@
 module Ogr
   # Class implements Breadth First Search in graphs
   class BreadthFirstSearch
-    attr_accessor :parents, :visited, :distance
-    private :parents=, :visited=, :distance=
+    attr_reader :parents, :visited, :distance
 
     def initialize(graph)
       @graph = graph
