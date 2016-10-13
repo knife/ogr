@@ -12,6 +12,7 @@ module Ogr
       add_edges(edges)
     end
 
+    # Creates new graph implemented as matrix.
     def self.new_dense(args)
       new(args, :matrix)
     end

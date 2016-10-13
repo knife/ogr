@@ -24,7 +24,7 @@ module Ogr
       new(edges, :tri_matrix)
     end
 
-    # Adds new edge to graph.
+    # Creates new edge in graph.
     def add(x, y, weight = 1)
       weight ||= 1
       @g.add(push(x), push(y), weight)
@@ -81,18 +81,22 @@ module Ogr
       @g.each_edge(vertexes, &block)
     end
 
-    def vc
-      (0...vertexes.size)
-    end
-
+    # Returns array of all graph vertexes
     def vertexes
       @map.to_a
     end
 
+    # Vertex size
     def vertex_size
       vertexes.size
     end
 
+    # Vertex numbers
+    def vc
+      (0...vertexes.size)
+    end
+
+    # Returns array of all graph edges
     def edges
       arr = []
       each_edge { |e| arr << e }

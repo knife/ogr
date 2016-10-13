@@ -3,14 +3,14 @@ require 'test_helper'
 describe Ogr::Graph do
   before do
     @edges = [
-      %w(Lukas Marc),
+      %w(Lukas Jerry),
       %w(Lukas Tom),
-      %w(Marc Jack),
-      %w(Tom Marc)
+      %w(Jerry Jack),
+      %w(Tom Jerry)
     ]
   end
 
-  describe 'dense graph implement as Triangular Matrix' do
+  describe 'implemented as Triangular Matrix' do
     before do
       @graph = Graph.new_dense(@edges)
     end
@@ -20,46 +20,46 @@ describe Ogr::Graph do
     end
 
     it '#degree returns degree for given vertex.' do
-      @graph.degree('Marc').must_equal 3
+      @graph.degree('Jerry').must_equal 3
       @graph.degree('Jack').must_equal 1
       @graph.degree('Lukas').must_equal 2
       @graph.degree('Tom').must_equal 2
     end
 
     it '#edge? checks if given vertexes are connected.' do
-      assert @graph.edge?('Marc', 'Tom')
-      assert @graph.edge?('Tom', 'Marc')
-      refute @graph.edge?('Tom', 'Jack')
-      refute @graph.edge?('Jack', 'Tom')
+      @graph.edge?('Jerry', 'Tom').must_equal true
+      @graph.edge?('Tom', 'Jerry').must_equal true
+      @graph.edge?('Tom', 'Jack').must_equal false
+      @graph.edge?('Jack', 'Tom').must_equal false
     end
 
     it '#add_edges adds new edges.' do
-      @graph.add_edges([Edge.new('Marc', 'Kate')])
+      @graph.add_edges([Edge.new('Jerry', 'Kate')])
       @graph.vertex_size.must_equal 5
-      assert @graph.edge?('Marc', 'Kate')
-      assert @graph.edge?('Kate', 'Marc')
-      refute @graph.edge?('Tom', 'Kate')
+      @graph.edge?('Jerry', 'Kate').must_equal true
+      @graph.edge?('Kate', 'Jerry').must_equal true
+      @graph.edge?('Tom', 'Kate').must_equal false
     end
 
-    it '#add adds new edge to graph.' do
+    it '#add creates new edge in graph.' do
       @graph.add('Jack', 'Lukas')
       @graph.vertex_size.must_equal 4
       assert @graph.edge?('Jack', 'Lukas')
       assert @graph.edge?('Lukas', 'Jack')
     end
 
-    it '#remove_edge removes edge from graph.' do
-      @graph.remove('Marc', 'Jack')
+    it '#remove removes edge from graph.' do
+      @graph.remove('Jerry', 'Jack')
       @graph.vertex_size.must_equal 4
-      refute @graph.edge?('Marc', 'Jack')
-      refute @graph.edge?('Jack', 'Marc')
+      refute @graph.edge?('Jerry', 'Jack')
+      refute @graph.edge?('Jack', 'Jerry')
     end
 
-    it '#neighbors should return all neighbors for given vertex.' do
+    it '#neighbors returns all neighbors for given vertex.' do
       n = @graph.neighbors('Tom')
       n.must_be_instance_of Array
       n.size.must_equal 2
-      assert n.include?('Marc')
+      assert n.include?('Jerry')
       assert n.include?('Lukas')
       refute n.include?('Jack')
     end
@@ -74,7 +74,7 @@ describe Ogr::Graph do
       r = []
       @graph.each_vertex { |v| r.push v }
       r.size.must_equal 4
-      r.sort.must_equal %w(Jack Lukas Marc Tom)
+      r.sort.must_equal %w(Jack Jerry Lukas Tom)
     end
 
     it '#edges returns edges list' do
@@ -83,7 +83,7 @@ describe Ogr::Graph do
     end
   end
 
-  describe 'graph implement as Adjency List' do
+  describe 'implemented as Adjency List' do
     before do
       @graph = Graph.new(@edges)
     end
@@ -93,24 +93,24 @@ describe Ogr::Graph do
     end
 
     it '#degree should return degree for given vertex.' do
-      @graph.degree('Marc').must_equal 3
+      @graph.degree('Jerry').must_equal 3
       @graph.degree('Jack').must_equal 1
       @graph.degree('Lukas').must_equal 2
       @graph.degree('Tom').must_equal 2
     end
 
     it '#edge? should check if given vertexes are connected.' do
-      assert @graph.edge?('Marc', 'Tom')
-      # assert @graph.edge?('Tom', 'Marc')
-      # refute @graph.edge?('Tom', 'Jack')
-      # refute @graph.edge?('Jack', 'Tom')
+      assert @graph.edge?('Jerry', 'Tom')
+      assert @graph.edge?('Tom', 'Jerry')
+      refute @graph.edge?('Tom', 'Jack')
+      refute @graph.edge?('Jack', 'Tom')
     end
 
     it '#add_edges should add new edges.' do
-      @graph.add_edges([Edge.new('Marc', 'Kate')])
+      @graph.add_edges([Edge.new('Jerry', 'Kate')])
       @graph.vertex_size.must_equal 5
-      assert @graph.edge?('Marc', 'Kate')
-      assert @graph.edge?('Kate', 'Marc')
+      assert @graph.edge?('Jerry', 'Kate')
+      assert @graph.edge?('Kate', 'Jerry')
       refute @graph.edge?('Tom', 'Kate')
     end
 
@@ -122,17 +122,17 @@ describe Ogr::Graph do
     end
 
     it '#remove_edge should remove edge.' do
-      @graph.remove('Marc', 'Jack')
+      @graph.remove('Jerry', 'Jack')
       @graph.vertex_size.must_equal 4
-      refute @graph.edge?('Marc', 'Jack')
-      refute @graph.edge?('Jack', 'Marc')
+      refute @graph.edge?('Jerry', 'Jack')
+      refute @graph.edge?('Jack', 'Jerry')
     end
 
     it '#neighbors should return all neighbors for given vertex.' do
       n = @graph.neighbors('Tom')
       n.must_be_instance_of Array
       n.size.must_equal 2
-      assert n.include?('Marc')
+      assert n.include?('Jerry')
       assert n.include?('Lukas')
       refute n.include?('Jack')
     end
@@ -147,7 +147,7 @@ describe Ogr::Graph do
       r = []
       @graph.each_vertex { |v| r.push v }
       r.size.must_equal 4
-      r.sort.must_equal %w(Jack Lukas Marc Tom)
+      r.sort.must_equal %w(Jack Jerry Lukas Tom)
     end
 
     it '#edges returns edges list' do
