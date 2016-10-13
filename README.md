@@ -1,6 +1,7 @@
 # Ogr
 
 [![Build Status](https://travis-ci.org/knife/ogr.svg?branch=master)](https://travis-ci.org/knife/ogr)
+[![Code Climate](https://codeclimate.com/github/knife/ogr/badges/gpa.svg)](https://codeclimate.com/github/knife/ogr)
 
 General graph library for Ruby. Provides sparse(or dense), directed(or undirected) and weighted(or normal) graphs. 
 Graph processing algorithms like BFS, DFS, ShortestPaths, MinimumSpanningTree are also included. 

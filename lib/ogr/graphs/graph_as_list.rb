@@ -45,8 +45,7 @@ module Ogr
     # edges, :out - outcoming edges, :all - incoming and outcoming edges.
     def degree(x, direction = :all)
       r = Hash.new(0)
-      vc = (0..@store.size)
-      vc.each do |i|
+      (0..@store.size).each do |i|
         r[:in] += 1 if  connected?(i, x)
         r[:out] += 1 if connected?(x, i)
       end

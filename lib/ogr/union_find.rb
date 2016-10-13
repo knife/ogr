@@ -17,15 +17,15 @@ module Ogr
       root_x = root(x)
       root_y = root(y)
       if sizes[root_y] > sizes[root_x]
-        update(root_x, root_y)
+        update_sizes(root_x, root_y)
       else
-        update(root_y, root_x)
+        update_sizes(root_y, root_x)
       end
     end
 
     private
 
-    def update(x, y)
+    def update_sizes(x, y)
       store[x] = y
       sizes[y] += sizes[x]
     end
